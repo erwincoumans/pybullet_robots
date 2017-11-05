@@ -45,6 +45,7 @@ newmtl mat14
 
 newmtl mat15
   Kd 0.81 0.85 0.86
+  d 0.1
 
 newmtl mat16
   Kd 0.47 0.56 0.61
