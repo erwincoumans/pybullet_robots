@@ -1,4 +1,8 @@
 import pybullet as p
+import minitaur_demo
+import kuka_demo
+
+import time
 
 cid = p.connect(p.SHARED_MEMORY)
 if (cid<0):
@@ -24,6 +28,42 @@ for o in objs:
 print("done")
 
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
-while(1):
-	p.stepSimulation()
 
+
+minitaur_demo_instance = minitaur_demo.MinitaurDemo()
+kuka_demo_instance = kuka_demo.KukaDemo()
+
+currentDemo = 0
+demos=[	["minitaur", [-2.978418391524483, -4.541674828592511, 0.02539077526503508],minitaur_demo_instance],
+						["kuka", [-3.272863154866866, 6.372032452458131, -0.013300959129968426],kuka_demo_instance],
+					]
+
+p.setRealTimeSimulation(1)
+frame = 0
+
+while(1):
+	for demo in demos:
+		demo[2].update()
+		
+	time.sleep(1./240.)
+	
+	keys = p.getKeyboardEvents()
+	#if ord('k') in keys:
+	#	print("k")
+	for k in keys:
+		if (keys[k]&p.KEY_WAS_TRIGGERED):
+			print(keys[k])
+			if k == p.B3G_RIGHT_ARROW:
+				print("next demo:",frame)
+				currentDemo = currentDemo+1
+				if (currentDemo>=len(demos)):
+					currentDemo=0
+				print("currentDemo=",currentDemo)
+				curCam = p.getDebugVisualizerCamera()
+				print(curCam)
+				
+			if k == p.B3G_LEFT_ARROW:
+				print("reset demo:",frame)
+				demos[currentDemo][2].reset()
+	p.setGravity(0,0,-10)
+	frame=frame+1
