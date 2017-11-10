@@ -22,34 +22,26 @@ class KukaDemo():
 		self._hasPrevPose = 0
 		self._prevPose=[0,0,0]
 		self._prevPose1=[0,0,0]
-		self._gripperMaxAngle = 1.0
+		self._gripperMaxAngle = 0.5
 		self._fingerJointIndices = (8, 10, 11, 13)
 		self._maxTorqueValues = (1.0, 0.5, 1.0, 0.5)
-		self._fingerJointsOpen = (0, 0.1, 0, -0.1)
-		self._fingerJointsClose = (self._gripperMaxAngle, 0.1,
-									self._gripperMaxAngle, -0.1)
+		self._fingerJointsOpen = (-self._gripperMaxAngle, 0, self._gripperMaxAngle, 0)
+		self._fingerJointsClose = (0, 0,
+									0, 0)
 		self._controlMode = p.POSITION_CONTROL
 		
 	def reset(self):
 		print ("kuka reset")
-	
-	def controlGripperAngle(self, finger_angle):
-		fingerTargetPositions = [self._fingerJointsClose[0] - finger_angle, self._fingerJointsClose[1], self._fingerJointsClose[2] - finger_angle, self._fingerJointsClose[3]]
-		self.setGripperJointAngles(fingerTargetPositions)
 
 	def setGripperJointAngles(self, target_angles):
-		p.setJointMotorControlArray(self._kukaId,self.fingerJointIndices,controlMode=self._controlMode,targetPositions=target_angles,targetVelocities=[0.0] * len(target_angles),forces=self._maxTorqueValues,positionGains=[0.2] * len(target_angles),velocityGains=[1.0] * len(target_angles))
+		p.setJointMotorControlArray(self._kukaId,self._fingerJointIndices,controlMode=self._controlMode,targetPositions=target_angles,targetVelocities=[0.0] * len(target_angles),forces=self._maxTorqueValues,positionGains=[0.2] * len(target_angles),velocityGains=[1.0] * len(target_angles))
 
-	def closeGripper(self, num_steps=1, duration=0.0, step_simulation=False):
+	def controlGripper(self, num_steps=1, duration=0.0, trigger_press=0.0):
 		for i in range(num_steps):
-			fingerAngle = self._gripperMaxAngle * (num_steps - i - 1) / float(num_steps)
-			self.controlGripperAngle(finger_angle)
-			time.sleep(duration / float(num_steps))
-
-	def openGripper(self, num_steps=1, duration=0.0):
-		for i in range(num_steps):
-			fingerAngle = self._gripperMaxAngle * (i + 1.0) / float(num_steps)
-			self.controlGripperAngle(finger_angle)
+			fingerAngle = (1.0 - trigger_press) * self._gripperMaxAngle * (i + 1.0) / float(num_steps)
+			# For fully close, the fingerAngle needs to be 0, for fully open, the fingerAngle needs to be self._gripperMaxAngle
+			fingerTargetPositions = [-fingerAngle, 0, fingerAngle, 0]
+			self.setGripperJointAngles(fingerTargetPositions)
 			time.sleep(duration / float(num_steps))
 		
 	def update(self):
@@ -73,3 +65,5 @@ class KukaDemo():
 		self._prevPose=pos
 		self._prevPose1=ls[4]
 		self._hasPrevPose = 1
+		# trigger_press = 0 corresponds to open, trigger_press = 1 corresponds to close
+		self.controlGripper(trigger_press=0.0)
