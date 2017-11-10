@@ -1,6 +1,7 @@
 import pybullet as p
 import minitaur_demo
 import kuka_demo
+import pendulum_demo
 
 import time
 
@@ -11,7 +12,7 @@ if (cid<0):
 p.resetSimulation()
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,0)
 p.configureDebugVisualizer(p.COV_ENABLE_TINY_RENDERER,0)
-objs = p.loadSDF("botlab/botlab.sdf")
+objs = p.loadSDF("botlab/botlab.sdf", globalScaling=2.0)
 
 zero=[0,0,0]
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
@@ -30,16 +31,17 @@ p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
 
 minitaur_demo_instance = minitaur_demo.MinitaurDemo()
 kuka_demo_instance = kuka_demo.KukaDemo()
+pendulum_demo_instance = pendulum_demo.PendulumDemo()
 
 currentDemo = 0
 demos=[	["pendulum", 
-					[1.0,-92.0000991821289,-22.20002555847168,[0.014351863414049149, 0.39431828260421753, -0.8194975852966309]],
-					kuka_demo_instance],
+					[1.0,-448.40008544921875, -11.000036239624023, [-1.5783566236495972, 0.9088447690010071, -1.105987787246704]],
+					pendulum_demo_instance],
 				["minitaur", 
-					[1.0,-32.00006103515625,-15.800018310546875,[-1.2958829402923584, -1.0237634181976318, -0.6982248425483704]],
+					[1.0099999904632568,-34.40010452270508,4.5999579429626465, [-2.699556350708008, -2.7035043239593506, -1.1882244348526]],
 					minitaur_demo_instance],
 			  ["kuka", 
-						[1.0,151.1998291015625,-18.599998474121094,[2.127235174179077, 1.6416270732879639, -0.8124083876609802]],
+	 					[1.0,163.59983825683594, -17.799997329711914, [4.711545467376709, 4.462226867675781, -1.0824081897735596]],
 						kuka_demo_instance],
 				]
 
