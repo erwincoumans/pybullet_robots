@@ -12,7 +12,7 @@ p.resetSimulation()
 #waitId = p.addUserDebugText(text="Wait while loading SDF",textPosition=[0,0,0],textColorRGB=[1,0,0],textSize=10)
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,0)
 p.configureDebugVisualizer(p.COV_ENABLE_TINY_RENDERER,0)
-objs = p.loadSDF("botlab/botlab.sdf")
+objs = p.loadSDF("botlab/botlab.sdf",globalScaling=2.0)
 
 zero=[0,0,0]
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
