@@ -12,6 +12,7 @@ if (cid<0):
 p.resetSimulation()
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,0)
 p.configureDebugVisualizer(p.COV_ENABLE_TINY_RENDERER,0)
+p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
 objs = p.loadSDF("botlab/botlab.sdf", globalScaling=2.0)
 
 zero=[0,0,0]
