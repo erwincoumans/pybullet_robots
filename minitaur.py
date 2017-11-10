@@ -5,8 +5,11 @@ import copy
 import math
 import numpy as np
 import pybullet
-import motor
 import os
+import pybullet_data
+import pybullet_envs
+from pybullet_envs.bullet import motor
+
 
 INIT_POSITION = [-1.25, -1.25, -0.5]
 INIT_ORIENTATION = [0, 0, 0, 1]
@@ -67,6 +70,7 @@ class Minitaur(object):
         that its walking gait is clearer to visualize.
       kd_for_pd_controllers: kd value for the pd controllers of the motors.
     """
+    pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
     self.num_motors = 8
     self.num_legs = int(self.num_motors / 2)
     self._urdf_root = urdf_root
@@ -127,16 +131,15 @@ class Minitaur(object):
       reload_urdf: Whether to reload the urdf file. If not, Reset() just place
         the minitaur back to its starting position.
     """
-    print ("%s/quadruped/minitaur.urdf" % self._urdf_root)
     if reload_urdf:
       if self._self_collision_enabled:
         self.quadruped = pybullet.loadURDF(
-            "%s/quadruped/minitaur.urdf" % self._urdf_root,
+            "quadruped/minitaur.urdf",
             INIT_POSITION,
             flags=pybullet.URDF_USE_SELF_COLLISION)
       else:
         self.quadruped = pybullet.loadURDF(
-            "%s/quadruped/minitaur.urdf" % self._urdf_root, INIT_POSITION)
+            "quadruped/minitaur.urdf", INIT_POSITION)
       self._BuildJointNameToIdDict()
       self._BuildMotorIdList()
       self._RecordMassInfoFromURDF()
