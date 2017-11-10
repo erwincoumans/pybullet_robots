@@ -8,4 +8,3 @@ class PendulumDemo():
 		
 	def update(self):
 		pass
-		#print ("pendulum update")
