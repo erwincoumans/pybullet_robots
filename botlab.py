@@ -48,6 +48,7 @@ demos=[	["pendulum",
 
 p.setRealTimeSimulation(1)
 frame = 0
+p.setGravity(0,0,-10)
 
 while(1):
 	for demo in demos:
@@ -78,5 +79,5 @@ while(1):
 			curCam = p.getDebugVisualizerCamera()
 			print("curCam dist, yaw, pitch, targetPos",curCam[10],curCam[8],curCam[9], curCam[11])
 
-p.setGravity(0,0,-10)
+
 frame=frame+1

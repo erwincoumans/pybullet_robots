@@ -11,7 +11,7 @@ import pybullet_envs
 from pybullet_envs.bullet import motor
 
 
-INIT_POSITION = [-1.25, -1.25, -0.5]
+INIT_POSITION = [-2.5, -2.3, -1.5]
 INIT_ORIENTATION = [0, 0, 0, 1]
 KNEE_CONSTRAINT_POINT_RIGHT = [0, 0.005, 0.2]
 KNEE_CONSTRAINT_POINT_LEFT = [0, 0.01, 0.2]
