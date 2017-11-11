@@ -50,6 +50,12 @@ p.setRealTimeSimulation(1)
 frame = 0
 p.setGravity(0,0,-10)
 
+p.resetDebugVisualizerCamera(demos[currentDemo][1][0],
+											 demos[currentDemo][1][1],
+											 demos[currentDemo][1][2],
+											 demos[currentDemo][1][3])
+
+
 while(1):
 	for demo in demos:
 		demo[2].update()

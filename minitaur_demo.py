@@ -10,7 +10,7 @@ class MinitaurDemo():
     self.minitaur = minitaur.Minitaur()
     self.reset_time = time.time()
     self.demo_list = [self._run, self._run_backward, self._squat]
-
+    self.t = 0
   def reset(self):
     self.minitaur.Reset(reload_urdf=False)
     self.reset_time = time.time()
@@ -19,7 +19,10 @@ class MinitaurDemo():
     current_time = time.time()
     time_since_reset = current_time - self.reset_time
     demo_index = int(time_since_reset / EACH_DEMO_DURATION) % NUM_DEMOS
-    self.demo_list[demo_index](time_since_reset)
+    self.t=self.t+0.003
+    if (self.t>3.141592):
+      self.t = self.t-3.141592
+    self.demo_list[demo_index](self.t)
 
   def _squat(self, time):
     action = 0.5 * math.sin(3 * time) + math.pi / 2

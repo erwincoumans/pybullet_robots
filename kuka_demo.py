@@ -48,7 +48,7 @@ class KukaDemo():
 		dt = datetime.now()
 		self._t = (dt.second/60.)*2.*math.pi
 
-		pos = [4.8-0.4,3.5+0.2*math.cos(self._t),-1.2+0.2*math.sin(self._t)]
+		pos = [4.8-0.4,3.5+0.2*math.cos(self._t),-.4+0.2*math.sin(self._t)]
 		orn = p.getQuaternionFromEuler([0,-math.pi,0])
 		
 		jointPoses = p.calculateInverseKinematics(self._kukaId,self._kukaEndEffectorIndex,pos,orn,jointDamping=self._jointDamping,solver=ikSolver)
@@ -59,9 +59,9 @@ class KukaDemo():
 			if qIndex > -1:
 				p.setJointMotorControl2(bodyIndex=self._kukaId,jointIndex=i,controlMode=p.POSITION_CONTROL,targetPosition=jointPoses[qIndex-7],targetVelocity=0,force=500,positionGain=0.03,velocityGain=1)
 		ls = p.getLinkState(self._kukaId,self._kukaEndEffectorIndex)
-		if (self._hasPrevPose):
-			p.addUserDebugLine(self._prevPose,pos,[0,0,0.3],1,trailDuration)
-			p.addUserDebugLine(self._prevPose1,ls[4],[1,0,0],1,trailDuration)
+		#if (self._hasPrevPose):
+		#	p.addUserDebugLine(self._prevPose,pos,[0,0,0.3],1,trailDuration)
+		#	p.addUserDebugLine(self._prevPose1,ls[4],[1,0,0],1,trailDuration)
 		self._prevPose=pos
 		self._prevPose1=ls[4]
 		self._hasPrevPose = 1
