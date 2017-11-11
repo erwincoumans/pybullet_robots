@@ -56,9 +56,17 @@ p.resetDebugVisualizerCamera(demos[currentDemo][1][0],
 											 demos[currentDemo][1][3])
 
 
+class Context():
+	def __init__(self):
+		self.validPos = False
+		self.vrMode = False
+		self.pos = [0,0,0]
+  	
+context=Context()
+
 while(1):
 	for demo in demos:
-		demo[2].update()
+		demo[2].update(context)
 
 	time.sleep(1./240.)
 

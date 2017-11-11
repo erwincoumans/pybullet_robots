@@ -6,5 +6,5 @@ class PendulumDemo():
 	def reset(self):
 		print ("pendulum reset")
 		
-	def update(self):
+	def update(self, context):
 		pass

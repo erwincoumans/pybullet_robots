@@ -15,14 +15,17 @@ class MinitaurDemo():
     self.minitaur.Reset(reload_urdf=False)
     self.reset_time = time.time()
 
-  def update(self):
+  def update(self, context):
     current_time = time.time()
     time_since_reset = current_time - self.reset_time
     demo_index = int(time_since_reset / EACH_DEMO_DURATION) % NUM_DEMOS
-    self.t=self.t+0.003
-    if (self.t>3.141592):
-      self.t = self.t-3.141592
-    self.demo_list[demo_index](self.t)
+    delta_time = time_since_reset
+    if (context.vrMode):
+      self.t=self.t+0.003
+      if (self.t>3.141592):
+        self.t = self.t-3.141592
+      delta_time = self.t
+    self.demo_list[demo_index](delta_time)
 
   def _squat(self, time):
     action = 0.5 * math.sin(3 * time) + math.pi / 2

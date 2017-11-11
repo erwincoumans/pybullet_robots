@@ -44,13 +44,21 @@ class KukaDemo():
 			self.setGripperJointAngles(fingerTargetPositions)
 			time.sleep(duration / float(num_steps))
 		
-	def update(self):
+	def update(self, context):
 		dt = datetime.now()
 		self._t = (dt.second/60.)*2.*math.pi
 
+		
 		pos = [4.8-0.4,3.5+0.2*math.cos(self._t),-.4+0.2*math.sin(self._t)]
 		orn = p.getQuaternionFromEuler([0,-math.pi,0])
+		trigger_press = 0.0
 		
+		if (context.validPos):
+			pos = context.pos
+			orn = context.orn
+			trigger_press = context.analog
+		
+		#jointPoses = p.calculateInverseKinematics(self._kukaId,self._kukaEndEffectorIndex,pos,orn,jointDamping=self._jointDamping,solver=ikSolver)
 		jointPoses = p.calculateInverseKinematics(self._kukaId,self._kukaEndEffectorIndex,pos,orn,jointDamping=self._jointDamping,solver=ikSolver)
 		
 		for i in range(self._numJoints):
@@ -66,4 +74,4 @@ class KukaDemo():
 		self._prevPose1=ls[4]
 		self._hasPrevPose = 1
 		# trigger_press = 0 corresponds to open, trigger_press = 1 corresponds to close
-		self.controlGripper(trigger_press=0.0)
+		self.controlGripper(trigger_press=trigger_press)

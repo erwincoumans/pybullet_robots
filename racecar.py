@@ -6,6 +6,6 @@ class RacecarDemo():
 	def reset(self):
 		print ("racecar reset")
 		
-	def update(self):
+	def update(self, context):
 		pass
 		#print ("update")

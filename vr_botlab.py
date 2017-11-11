@@ -6,7 +6,9 @@ import minitaur_demo
 import kuka_demo
 import pendulum_demo
 
-vr_shift=[0,0,0]
+vr_shift=[-1,-0.6,-1]
+
+useMaximalCoordinatesEnvObjects=False #there is some issue with maximal coordinate bodies
 
 cid = p.connect(p.SHARED_MEMORY)
 if (cid<0):
@@ -30,6 +32,13 @@ linkInertialFrameOrientations=[[0,0,0,1]]
 linkIndices=[0]
 linkJointTypes=[p.JOINT_FIXED]
 linkJointAxis=[[0,0,1]]
+
+objects = [p.loadURDF("sphere_small.urdf", [-1.447238,0.040553,-1.375914],[0.744341,-0.356588,-0.508423,0.245575], useMaximalCoordinates=useMaximalCoordinatesEnvObjects)]
+objects = [p.loadURDF("sphere_small.urdf", [-1.337466,0.789305,-1.381118],[-0.061649,0.766884,0.468601,-0.434168], useMaximalCoordinates=useMaximalCoordinatesEnvObjects)]
+objects = [p.loadURDF("sphere_small.urdf", [4.705443,2.788506,-1.319134],[0.830352,-0.126438,-0.528531,0.123221], useMaximalCoordinates=useMaximalCoordinatesEnvObjects)]
+objects = [p.loadURDF("sphere_small.urdf", [4.645979,2.714498,-1.320512],[0.837715,0.056015,-0.458430,-0.291440], useMaximalCoordinates=useMaximalCoordinatesEnvObjects)]
+objects = [p.loadURDF("sphere_small.urdf", [4.661952,3.834003,-1.363581],[0.731792,-0.049574,-0.270830,0.623437], useMaximalCoordinates=useMaximalCoordinatesEnvObjects)]
+
 
 
 #objects = p.loadSDF("stadium.sdf")
@@ -59,7 +68,7 @@ p.configureDebugVisualizer(p.COV_ENABLE_KEYBOARD_SHORTCUTS, 0)
 
 #objects = [p.loadURDF("plane.urdf", 0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,1.000000)]
 #kitchenObj = p.loadSDF("kitchens/1.sdf")
-botlabobjects = p.loadSDF("botlab/botlab.sdf", globalScaling=2)
+botlabobjects = p.loadSDF("botlab/botlab.sdf", globalScaling=2, useMaximalCoordinates=useMaximalCoordinatesEnvObjects)
 #botlabobjects = p.loadSDF("botlab/newsdf.sdf", globalScaling=2)
 print("num botlabobjects  = ", botlabobjects )
 
@@ -187,7 +196,7 @@ class EmptyDemo():
 	def reset(self):
 		print ("racecar reset")
 		
-	def update(self):
+	def update(self, context):
 		pass
 		#print ("update")
 
@@ -200,7 +209,7 @@ pendulum_demo_instance = EmptyDemo()#pendulum_demo.PendulumDemo()
 
 currentDemo = 0
 demos=[	["pendulum",
-		 [1.0,-448.40008544921875, -11.000036239624023, [-1.5783566236495972, 0.9088447690010071, -1.105987787246704]],
+		 [1.0,-448.40008544921875, -11.000036239624023, [-1.0783566236495972, 1.9088447690010071, -1.105987787246704]],
 		 pendulum_demo_instance],
 				["minitaur",
 					[1.0099999904632568,-34.40010452270508,4.5999579429626465, [-2.699556350708008, -2.7035043239593506, -1.1882244348526]],
@@ -217,6 +226,15 @@ print("PluginId="+str(plugin))
 p.executePluginCommand(plugin ,"bla", [controllerId,pr2_cid, pr2_cid2,pr2_gripper],[50,1])
 t7=0
 
+class Context():
+	def __init__(self):
+		self.validPos = False
+		self.vrMode = True
+		self.pos = [0,0,0]
+  	
+context=Context()
+
+
 mult = 1000.
 while (1):
 	t0 = mult*time.clock()
@@ -226,7 +244,7 @@ while (1):
 	t1 = mult*time.clock()
 	
 	for demo in demos:
-		demo[2].update()
+		demo[2].update(context)
 	
 	t2 = mult*time.clock()
 	
@@ -248,6 +266,7 @@ while (1):
 				vr_shift[2] = vr_shift[2]+0.1
 			if key == p.B3G_PAGE_DOWN:
 				vr_shift[2] = vr_shift[2]-0.1
+		print("vr_shift",vr_shift)
 				
 	t3 = mult*time.clock()
 	
@@ -267,6 +286,7 @@ while (1):
 			buttonA = 1
 			p.changeVisualShape(uiCube,0,rgbaColor=[1,1,0,1])
 			demos[currentDemo][2].reset()
+			p.saveWorld("demoObjects.py")
 	
 
 			
@@ -301,10 +321,10 @@ while (1):
 	for e in (events):
 		if e[CONTROLLER_ID] == uiControllerId:
 			p.resetBasePositionAndOrientation(uiCube,e[POSITION], e[ORIENTATION])
-		if (e[BUTTONS][32]&p.VR_BUTTON_WAS_TRIGGERED ):
-			currentDemo = currentDemo+1
-			if (currentDemo>=len(demos)):
-				currentDemo = 0
+			if (e[BUTTONS][32]&p.VR_BUTTON_WAS_TRIGGERED ):
+				currentDemo = currentDemo+1
+				if (currentDemo>=len(demos)):
+					currentDemo = 0
 		
 		if False:
 			pos = e[POSITION]
@@ -337,15 +357,35 @@ while (1):
 				else:
 					objectInfo="None"
 			
+		
+			
 		if e[CONTROLLER_ID] == controllerId:  # To make sure we only get the value for one of the remotes
-			#sync the vr pr2 gripper with the vr controller position
+			
 			gpos,gorn = p.getBasePositionAndOrientation(pr2_gripper)
 			
-			maxDist = 0.1
-			gripperLost = math.fabs(gpos[0]-e[POSITION][0]) > maxDist or math.fabs(gpos[1]-e[POSITION][1]) > maxDist or math.fabs(gpos[2]-e[POSITION][2]) > maxDist
-			if (gripperLost):
-				print("reset gripper")
-				p.resetBasePositionAndOrientation(pr2_gripper,e[POSITION], e[ORIENTATION])
+			
+			if (e[BUTTONS][32]&p.VR_BUTTON_WAS_TRIGGERED ):
+				p.loadURDF("sphere_small.urdf",gpos,gorn, useMaximalCoordinates=useMaximalCoordinatesEnvObjects)
+			
+			#sync the vr pr2 gripper with the vr controller position
+			
+			
+			if (demos[currentDemo][0] == "kuka"):
+					context.validPos = True
+					context.pos = e[POSITION]
+					context.orn = e[ORIENTATION]
+					context.analog = e[ANALOG]
+					p.executePluginCommand(plugin ,"bla", [controllerId,pr2_cid, pr2_cid2,pr2_gripper],[50,0])
+					p.resetBasePositionAndOrientation(pr2_gripper,[0,0,-10], [0,0,0,1])
+			else:
+					context.validPos = False
+					p.executePluginCommand(plugin ,"bla", [controllerId,pr2_cid, pr2_cid2,pr2_gripper],[50,1])
+					maxDist = 0.2
+					gripperLost = math.fabs(gpos[0]-e[POSITION][0]) > maxDist or math.fabs(gpos[1]-e[POSITION][1]) > maxDist or math.fabs(gpos[2]-e[POSITION][2]) > maxDist
+					if (gripperLost):
+						print("reset gripper")
+						p.resetBasePositionAndOrientation(pr2_gripper,e[POSITION], e[ORIENTATION])
+				
 				
 		#		
 		#	p.changeConstraint(pr2_cid, e[POSITION], e[ORIENTATION], maxForce=500)
@@ -354,7 +394,7 @@ while (1):
 		#	p.changeConstraint(pr2_cid2,gearRatio=1, erp=1, relativePositionTarget=relPosTarget, maxForce=1)
 	
 	t8 = mult*time.clock()
-	print("%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f"%(t1-t0,t2-t1,t3-t2,t4-t3,t5-t4,t6-t5, t7-t6, t8-t7))		
+	#print("%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f"%(t1-t0,t2-t1,t3-t2,t4-t3,t5-t4,t6-t5, t7-t6, t8-t7))		
 	
 	
 			
