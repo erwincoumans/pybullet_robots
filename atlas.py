@@ -22,12 +22,14 @@ else:
 	
 p.loadURDF("boston_box.urdf",[-2,3,-2], useFixedBase=True)
 
+p.resetDebugVisualizerCamera( cameraDistance=1, cameraYaw=148, cameraPitch=-9, cameraTargetPosition=[0.36,5.3,-0.62])
+
 p.loadURDF("boston_box.urdf",[0,3,-2],useFixedBase=True)
 
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
 
-#p.stepSimulation()
-#time.sleep(0.01)
+p.getCameraImage(320,200)#, renderer=p.ER_BULLET_HARDWARE_OPENGL )
+
 
 t=0
 p.setRealTimeSimulation(1)
