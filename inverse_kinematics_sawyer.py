@@ -34,7 +34,7 @@ while 1:
 	if (useRealTimeSimulation):
 		dt = datetime.now()
 		t = (dt.second/60.)*2.*math.pi
-		print t
+		print (t)
 	else:
 		t=t+0.01
 		time.sleep(0.01)
