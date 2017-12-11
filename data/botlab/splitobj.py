@@ -3,7 +3,7 @@ objname = ""
 subobj = 0
 faces = 0
 
-with open("model.obj",'r') as openfileobject:
+with open("model2.obj",'r') as openfileobject:
 	lines = 0
 	for line in openfileobject:
 		lines = lines+1

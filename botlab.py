@@ -2,6 +2,7 @@ import pybullet as p
 import minitaur_demo
 import kuka_demo
 import pendulum_demo
+import empty_demo
 
 import time
 
@@ -9,24 +10,26 @@ cid = p.connect(p.SHARED_MEMORY)
 if (cid<0):
 	p.connect(p.GUI)
 
+p.setAdditionalSearchPath("pybullet_data")
 p.resetSimulation()
-p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,0)
+p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
 p.configureDebugVisualizer(p.COV_ENABLE_TINY_RENDERER,0)
 p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
-objs = p.loadSDF("botlab/botlab.sdf", globalScaling=2.0)
+#p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
 
-zero=[0,0,0]
-p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
-
-
-print("converting y to z axis")
-for o in objs:
-	pos,orn = p.getBasePositionAndOrientation(o)
-	y2x = p.getQuaternionFromEuler([3.14/2.,0,0])
-	newpos,neworn = p.multiplyTransforms(zero,y2x,pos,orn)
-	p.resetBasePositionAndOrientation(o,newpos,neworn)
-print("done")
-
+if (1):
+	objs = p.loadSDF("botlab/botlab.sdf", globalScaling=2.0)
+	zero=[0,0,0]
+	print("converting y to z axis")
+	for o in objs:
+		pos,orn = p.getBasePositionAndOrientation(o)
+		y2x = p.getQuaternionFromEuler([3.14/2.,0,0])
+		newpos,neworn = p.multiplyTransforms(zero,y2x,pos,orn)
+		p.resetBasePositionAndOrientation(o,newpos,neworn)
+	print("done")
+else:
+	p.loadURDF("plane.urdf",[0,0,-2])
+	
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
 
 
@@ -34,7 +37,7 @@ minitaur_demo_instance = minitaur_demo.MinitaurDemo()
 kuka_demo_instance = kuka_demo.KukaDemo()
 pendulum_demo_instance = pendulum_demo.PendulumDemo()
 
-currentDemo = 0
+currentDemo = 2
 demos=[	["pendulum",
 		 [1.0,-448.40008544921875, -11.000036239624023, [-1.5783566236495972, 0.9088447690010071, -1.105987787246704]],
 		 pendulum_demo_instance],
@@ -81,6 +84,7 @@ while(1):
 				currentDemo = currentDemo+1
 				if (currentDemo>=len(demos)):
 					currentDemo=0
+				
 				print("currentDemo=",currentDemo)
 				p.resetDebugVisualizerCamera(demos[currentDemo][1][0],
 											 demos[currentDemo][1][1],
