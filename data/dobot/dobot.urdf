@@ -1,7 +1,6 @@
 <?xml version="0.0" ?>
-<robot name="urdf_door">
- 
-  
+<robot name="dobot_arm_kickstarter">
+  <!-- URDF copyright Erwin Coumans for http://pybullet.org -->
   <link name="baseLink">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -88,7 +87,7 @@
     <visual>
       <origin rpy="0 1.57 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.03" radius="0.002"/>
+        <cylinder length="0.03" radius="0.02"/>
       </geometry>
 	   <material name="black">
 	   <color rgba="0.2 0.2 0.2 1"/>
@@ -119,7 +118,7 @@
     <visual>
       <origin rpy="0 1.57 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.03" radius="0.002"/>
+        <cylinder length="0.03" radius="0.02"/>
       </geometry>
 	   <material name="black">
 	   <color rgba="0.2 0.2 0.2 1"/>
@@ -148,14 +147,14 @@
       <inertia ixx="0.048966669" ixy="0" ixz="0" iyy="0.046466667" iyz="0" izz="0.0041666669"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.08"/>
+      <origin rpy="0 0 0" xyz="0 0 0.075"/>
       <geometry>
         <mesh filename="cad/Dobot/A9.stl" scale="1 1 1"/>
       </geometry>
 	   <material name="blue"/>
 	  </visual>
      <collision>
-       <origin rpy="0 0 0" xyz="0 0 0.09"/>
+       <origin rpy="0 0 0" xyz="0 0 0.07"/>
        <geometry>
           <box size="0.005 0.02 0.18"/>
        </geometry>
@@ -166,7 +165,7 @@
     <parent link="linkA"/>
     <child link="linkA9"/>
 	<dynamics damping="1.0" friction="0.0001"/>
-    <origin xyz="0 -0.035 0.045"/>
+    <origin xyz="0 -0.026 0.054"/>
 		<axis xyz="1 0 0"/>
   </joint>
   
@@ -243,7 +242,7 @@
   
   <link name="linkC">
     <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0.075"/>
+      <origin rpy="0 0 0" xyz="0 0 0.08"/>
       <mass value=".1"/>
       <inertia ixx="0.048966669" ixy="0" ixz="0" iyy="0.046466667" iyz="0" izz="0.0041666669"/>
     </inertial>
@@ -268,7 +267,7 @@
      <collision>
        <origin rpy="0 0 0" xyz="0 0 0.075"/>
        <geometry>
-          <box size="0.026  0.026 0.150"/>
+          <box size="0.026  0.026 0.21"/>
        </geometry>
      </collision>
    </link>
@@ -283,7 +282,7 @@
 
   <link name="linkD">
     <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0.035"/>
+      <origin rpy="0 0 0" xyz="0 0 0.02"/>
       <mass value=".1"/>
       <inertia ixx="0.048966669" ixy="0" ixz="0" iyy="0.046466667" iyz="0" izz="0.0041666669"/>
     </inertial>
@@ -305,9 +304,9 @@
 	  </visual>
 	 	  
      <collision>
-       <origin rpy="0 0 0" xyz="0 0 0.035"/>
+       <origin rpy="0 0 0" xyz="0.00 0.045 -0.017"/>
        <geometry>
-          <box size="0.01  0.02 0.08"/>
+          <box size="0.02  0.08 0.005"/>
        </geometry>
      </collision>
    </link>
@@ -323,19 +322,19 @@
 
 <link name="linkA10">
     <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0.075"/>
+      <origin rpy="0 0 0" xyz="0 0 0.08"/>
       <mass value=".1"/>
       <inertia ixx="0.048966669" ixy="0" ixz="0" iyy="0.046466667" iyz="0" izz="0.0041666669"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.075"/>
+      <origin rpy="0 0 0" xyz="0 0 0.08"/>
       <geometry>
         <mesh filename="cad/Dobot/A10.stl" scale="1 1 1"/>
       </geometry>
 	   <material name="blue"/>
 	  </visual>
      <collision>
-       <origin rpy="0 0 0" xyz="0 0 0.075"/>
+       <origin rpy="0 0 0" xyz="0 0 0.08"/>
        <geometry>
           <box size="0.005 0.02 0.17"/>
        </geometry>
@@ -347,7 +346,6 @@
     <child link="linkA10"/>
 	<dynamics damping="1.0" friction="0.0001"/>
     <origin xyz="0 0.026 0.014"/>
-    
 		<axis xyz="1 0 0"/>
   </joint>
   
