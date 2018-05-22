@@ -126,7 +126,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_thigh.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_thigh.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -164,7 +164,7 @@
         <visual>
             <origin rpy="0 0 0.0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_shank_2_LF.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_shank_2_LF.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -200,7 +200,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_optoforce.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_optoforce.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -271,7 +271,7 @@
         <visual>
             <origin rpy="0 0 3.14159265359" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_thigh.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_thigh.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -309,7 +309,7 @@
         <visual>
             <origin rpy="3.14159265359 3.14159265359 3.14159265359" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_shank_2_RF.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_shank_2_RF.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -345,7 +345,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_optoforce.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_optoforce.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -416,7 +416,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_thigh.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_thigh.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -454,7 +454,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_shank_2_LH.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_shank_2_LH.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -490,7 +490,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_optoforce.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_optoforce.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -561,7 +561,7 @@
         <visual>
             <origin rpy="0 0 3.14159265359" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_thigh.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_thigh.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -599,7 +599,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_shank_2_RH.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_shank_2_RH.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
@@ -635,7 +635,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="anymal_optoforce.dae" scale="0.001 0.001     0.001"/>
+                <mesh filename="anymal_optoforce.obj" scale="0.001 0.001     0.001"/>
             </geometry>
             <material name="anymal_material"/>
         </visual>
