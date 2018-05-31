@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="none_tip">
+  <xacro:macro name="finger_tip_xacro" params="parent_link reflect *joint_origin">
+    <link name="${parent_link}_tip">
+    </link>
+
+    <joint name="${parent_link}_tip_joint" type="fixed">
+      <xacro:insert_block name="joint_origin" />
+      <parent link="${parent_link}"/>
+      <child link="${parent_link}_tip"/>
+    </joint>
+  </xacro:macro>
+</robot>

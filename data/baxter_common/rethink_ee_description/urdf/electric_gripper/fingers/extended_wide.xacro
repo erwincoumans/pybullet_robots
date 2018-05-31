@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="wide_extended">
+  <xacro:macro name="finger_xacro" params="gripper_side finger_side reflect finger_tip finger_grasp">
+    <xacro:property name="finger_length" value="0.1127" scope="global"/>
+    <xacro:property name="finger_width" value="0.05503" scope="local"/>
+    <link name="${gripper_side}_gripper_${finger_side}_finger">
+      <visual>
+        <origin rpy="0 0 ${-pi/2*(reflect+1)}" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/extended_wide.DAE" />
+        </geometry>
+      </visual>
+     <xacro:property name="finger_box_height" value="0.01" scope="local"/>
+     <xacro:property name="finger_box_width" value="0.0135" scope="local"/>
+     <xacro:property name="finger_box_length" value="0.0615" scope="local"/>
+     <collision>
+        <origin rpy="0 0 ${-pi/2*(reflect+1)}" xyz="0 ${finger_width*reflect} ${finger_box_length}"/>
+        <geometry>
+          <box size="${finger_box_height} ${finger_box_width} ${finger_length}"/>
+        </geometry>
+      </collision>
+      <xacro:property name="knuckle_box_height" value="0.01" scope="local"/>
+      <xacro:property name="knuckle_box_width" value="0.017" scope="local"/>
+      <xacro:property name="knuckle_box_length" value="${finger_width + 0.03275}" scope="local"/>
+      <collision>
+        <origin rpy="0 0 ${-pi/2*(reflect+1)}" xyz="${reflect*-0.005} ${0.016*reflect} 0.0083"/>
+        <geometry>
+          <box size="${knuckle_box_height} ${knuckle_box_length} ${knuckle_box_width}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin rpy="0 0 ${-pi/2*(reflect+1)}" xyz="0 0 0"/>
+        <mass value="0.02"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+      </inertial>
+    </link>
+
+    <gazebo reference="${gripper_side}_gripper_${finger_side}_finger">
+      <mu1>1000</mu1>
+      <mu2>1000</mu2>
+      <fdir1>0.0 0.0 1.0</fdir1>
+      <kp>1e5</kp>
+      <kd>1.0</kd>
+    </gazebo>
+
+   <xacro:property name="none" value="[none, false, null, empty]" scope="local"/>
+   <xacro:if value="${finger_tip in none}">
+     <xacro:property name="finger_tip" value="none" scope="local"/>
+   </xacro:if>
+   <xacro:include filename="$(find rethink_ee_description)/urdf/electric_gripper/fingers/${finger_tip}.xacro" />
+   <xacro:finger_tip_xacro parent_link="${gripper_side}_gripper_${finger_side}_finger" reflect="${reflect}" grasp="${finger_grasp}">
+       <origin rpy="0 0 0" xyz="0.0 ${reflect*finger_width} ${finger_length}"/>
+   </xacro:finger_tip_xacro>
+
+  </xacro:macro>
+</robot>

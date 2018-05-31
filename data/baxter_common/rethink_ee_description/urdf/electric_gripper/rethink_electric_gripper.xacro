@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rethink_electric_gripper">
+  <xacro:macro name="rethink_electric_gripper" params="side r_finger r_finger_slot r_finger_tip r_finger_grasp l_finger l_finger_slot l_finger_tip l_finger_grasp">
+    <xacro:property name="gripper_side" value="${side[0]}" scope="local"/>
+    <!-- Base of end effector -->
+    <link name="${side}_gripper_base">
+      <visual>
+        <origin rpy="${-pi/2} ${pi} 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://rethink_ee_description/meshes/electric_gripper/electric_gripper_base.DAE"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="${-pi/2} ${pi} 0" xyz="0.0 0.0 0"/>
+        <geometry>
+          <cylinder length="0.1" radius="0.029"/>
+        </geometry>
+        <material name="darkred">
+          <color rgba=".5 .1 .1 1"/>
+        </material>
+      </collision>
+      <inertial>
+        <origin rpy="${-pi/2} ${pi} 0" xyz="0.0 0.0 0.0"/>
+        <mass value="0.3"/>
+        <inertia ixx="2e-08" ixy="0" ixz="0" iyy="3e-08" iyz="0" izz="2e-08"/>
+      </inertial>
+    </link>
+
+    <!-- Left finger link -->
+    <xacro:property name="finger_length" value="0.0" scope="global"/>
+    <xacro:include filename="$(find rethink_ee_description)/urdf/electric_gripper/fingers/${l_finger}.xacro" />
+    <xacro:finger_xacro gripper_side="${gripper_side}" finger_side="l" reflect="1" finger_tip="${l_finger_tip}" finger_grasp="${l_finger_grasp}"/>
+    <xacro:property name="tip_finger_length" value="${finger_length}" scope="local"/>
+
+    <!-- Right finger link -->
+    <xacro:include filename="$(find rethink_ee_description)/urdf/electric_gripper/fingers/${r_finger}.xacro" />
+    <xacro:finger_xacro gripper_side="${gripper_side}" finger_side="r" reflect="-1" finger_tip="${r_finger_tip}" finger_grasp="${r_finger_grasp}"/>
+    <xacro:if value="${finger_length > tip_finger_length}">
+        <xacro:property name="tip_finger_length" value="${finger_length}" scope="local"/>
+    </xacro:if>
+
+    <!-- Electric Gripper Base Joint -->
+    <joint name="${side}_gripper_base" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0.025"/>
+      <parent link="${side}_hand"/>
+      <child link="${side}_gripper_base"/>
+    </joint>
+    <!-- Electric Gripper Tip joint -->
+    <joint name="${side}_endpoint" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 ${tip_finger_length+0.02}"/>
+      <parent link="${side}_gripper_base"/>
+      <child link="${side}_gripper"/>
+    </joint>
+    <!-- Electric Gripper Tip link -->
+    <link name="${side}_gripper">
+      <inertial>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <mass value="0.0001"/>
+        <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0.0"/>
+      </inertial>
+    </link>
+
+    <!-- Left finger -->
+    <xacro:property name="l_finger_offset" value="${((l_finger_slot-1)*0.0095) -0.011}" scope="local"/>
+    <joint name="${gripper_side}_gripper_l_finger_joint" type="prismatic">
+      <origin rpy="0 0 0" xyz="0.0 ${l_finger_offset} 0.02"/>
+      <axis xyz="0 1 0"/>
+      <parent link="${side}_gripper_base"/>
+      <child link="${gripper_side}_gripper_l_finger"/>
+      <limit effort="20.0" lower="0.0" upper="0.020833" velocity="5.0"/>
+      <dynamics damping="0.7" friction="0.0"/>
+    </joint>
+
+    <!-- Right finger -->
+    <xacro:property name="r_finger_offset" value="${((r_finger_slot-1)*-0.0095) +0.011}" scope="local"/>
+    <joint name="${gripper_side}_gripper_r_finger_joint" type="prismatic">
+      <origin rpy="0 0 0" xyz="0.0 ${r_finger_offset} 0.02"/>
+      <axis xyz="0 1 0"/>
+      <parent link="${side}_gripper_base"/>
+      <child link="${gripper_side}_gripper_r_finger"/>
+      <limit effort="20.0" lower="-0.020833" upper="0.0" velocity="5.0"/>
+      <mimic joint="${gripper_side}_gripper_l_finger_joint" multiplier="-1.0"/>
+      <dynamics damping="0.7" friction="0.0"/>
+    </joint>
+
+    <transmission name="gripper_${side}1">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${gripper_side}_gripper_r_finger_joint">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="gripper_${gripper_side}1_motor1">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    <transmission name="gripper_${side}2">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${gripper_side}_gripper_l_finger_joint">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="gripper_${gripper_side}1_motor2">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    <gazebo reference="${gripper_side}_gripper_r_finger_joint">
+      <implicitSpringDamper>1</implicitSpringDamper>
+    </gazebo>
+    <gazebo reference="${gripper_side}_gripper_l_finger_joint">
+      <implicitSpringDamper>1</implicitSpringDamper>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

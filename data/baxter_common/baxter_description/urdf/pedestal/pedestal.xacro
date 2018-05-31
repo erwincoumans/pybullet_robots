@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<robot name="pedistal" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Arguments and Defaults-->
+  <xacro:arg name="gazebo" default="false"/>
+  <link name="pedestal">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://baxter_description/meshes/base/PEDESTAL.DAE"/>
+      </geometry>
+      <material name="darkgray">
+        <color rgba=".2 .2 .2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://baxter_description/meshes/base/pedestal_link_collision.DAE"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="60.86397744"/>
+      <inertia ixx="5.0635929" ixy="0.00103417" ixz="0.80199628" iyy="6.08689388" iyz="0.00105311" izz="4.96191932"/>
+    </inertial>
+  </link>
+  <joint name="pedestal_fixed" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+    <parent link="torso"/>
+    <child link="pedestal"/>
+  </joint>
+  <xacro:if value="$(arg gazebo)">
+    <!-- When using the pedistal, fix Baxter to Gazebo world with 'base' frame -->
+    <link name="world"/>
+    <joint name="fixed" type="fixed">
+      <parent link="world"/>
+      <child link="base"/>
+    </joint>
+  </xacro:if>
+</robot>
