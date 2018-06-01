@@ -75,9 +75,9 @@ def getJointRanges(bodyId, includeFixed=False):
             # For simplicity, assume resting state == initial state
             rp = p.getJointState(bodyId, i)[0]
 
-            lowerLimits.append(ll)
-            upperLimits.append(ul)
-            jointRanges.append(jr)
+            lowerLimits.append(-10)
+            upperLimits.append(10)
+            jointRanges.append(10)
             restPoses.append(rp)
 
     return lowerLimits, upperLimits, jointRanges, restPoses
