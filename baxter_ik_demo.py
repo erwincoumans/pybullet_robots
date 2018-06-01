@@ -26,7 +26,7 @@ def setUpWorld(initialSimSteps=100):
     sleep(0.1)
     p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,0)
     # Load Baxter
-    baxterId = p.loadURDF("baxter_common/baxter_description/urdf/toms_baxter.urdf")
+    baxterId = p.loadURDF("baxter_common/baxter_description/urdf/toms_baxter.urdf", useFixedBase=True)
     p.resetBasePositionAndOrientation(baxterId, [0.5, -0.8, 0.0], [0., 0., -1., -1.])
     #p.resetBasePositionAndOrientation(baxterId, [0.5, -0.8, 0.0],[0,0,0,1])
     #p.resetBasePositionAndOrientation(baxterId, [0, 0, 0], )
@@ -34,7 +34,7 @@ def setUpWorld(initialSimSteps=100):
     p.configureDebugVisualizer(p.COV_ENABLE_RENDERING,1)
 
     # Grab relevant joint IDs
-    endEffectorId = 49 # (left gripper left finger)
+    endEffectorId = 48 # (left gripper left finger)
 
     # Set gravity
     p.setGravity(0., 0., -10.)
@@ -75,15 +75,15 @@ def getJointRanges(bodyId, includeFixed=False):
             # For simplicity, assume resting state == initial state
             rp = p.getJointState(bodyId, i)[0]
 
-            lowerLimits.append(-10)
-            upperLimits.append(10)
-            jointRanges.append(10)
+            lowerLimits.append(-2)
+            upperLimits.append(2)
+            jointRanges.append(2)
             restPoses.append(rp)
 
     return lowerLimits, upperLimits, jointRanges, restPoses
 
 def accurateIK(bodyId, endEffectorId, targetPosition, lowerLimits, upperLimits, jointRanges, restPoses, 
-               useNullSpace=False, maxIter=500, threshold=1e-4):
+               useNullSpace=False, maxIter=10, threshold=1e-4):
     """
     Parameters
     ----------
@@ -125,6 +125,7 @@ def accurateIK(bodyId, endEffectorId, targetPosition, lowerLimits, upperLimits, 
         newPos = ls[4]
         diff = [targetPosition[0]-newPos[0],targetPosition[1]-newPos[1],targetPosition[2]-newPos[2]]
         dist2 = np.sqrt((diff[0]*diff[0] + diff[1]*diff[1] + diff[2]*diff[2]))
+        print("dist2=",dist2)
         closeEnough = (dist2 < threshold)
         iter=iter+1
     print("iter=",iter)
@@ -141,6 +142,7 @@ def setMotors(bodyId, jointPoses):
 
     for i in range(numJoints):
         jointInfo = p.getJointInfo(bodyId, i)
+        #print(jointInfo)
         qIndex = jointInfo[3]
         if qIndex > -1:
             p.setJointMotorControl2(bodyIndex=bodyId, jointIndex=i, controlMode=p.POSITION_CONTROL,
@@ -151,6 +153,12 @@ def setMotors(bodyId, jointPoses):
 if __name__ == "__main__":
     guiClient = p.connect(p.GUI)
     p.resetDebugVisualizerCamera(2., 180, 0., [0.52, 0.2, np.pi/4.])
+
+
+    targetPosXId = p.addUserDebugParameter("targetPosX",-1,1,0.2)
+    targetPosYId = p.addUserDebugParameter("targetPosY",-1,1,0)
+    targetPosZId = p.addUserDebugParameter("targetPosZ",-1,1,-0.1)
+    nullSpaceId = p.addUserDebugParameter("nullSpace",0,1,1)
 
     baxterId, endEffectorId = setUpWorld()
 
@@ -168,9 +176,19 @@ if __name__ == "__main__":
 
     sleep(1.)
 
+    p.getCameraImage(320,200, renderer=p.ER_BULLET_HARDWARE_OPENGL )
     for _ in range(maxIters):
       p.stepSimulation()
-      jointPoses = accurateIK(baxterId, endEffectorId, targetPosition, lowerLimits, upperLimits, jointRanges, restPoses, useNullSpace=True)
+      targetPosX = p.readUserDebugParameter(targetPosXId)
+      targetPosY = p.readUserDebugParameter(targetPosYId)
+      targetPosZ = p.readUserDebugParameter(targetPosZId)
+      nullSpace = p.readUserDebugParameter(nullSpaceId)
+
+      targetPosition=[targetPosX,targetPosY,targetPosZ]
+      
+      useNullSpace = nullSpace>0.5
+      print("useNullSpace=",useNullSpace)
+      jointPoses = accurateIK(baxterId, endEffectorId, targetPosition, lowerLimits, upperLimits, jointRanges, restPoses, useNullSpace=useNullSpace)
       setMotors(baxterId, jointPoses)
 
       #sleep(0.1)
