@@ -1,0 +1,279 @@
+<sdf version='1.6'>
+	<world name='default'>
+	<gravity>0 0 -9.8</gravity>
+		<model name='part0.obj'>
+			<static>1</static>
+			<pose frame=''>0 0 0 0 0 0</pose>
+			<link name='link_d0'>
+			<inertial>
+			<mass>0</mass>
+			<inertia>
+			<ixx>0.166667</ixx>
+			<ixy>0</ixy>
+			<ixz>0</ixz>
+			<iyy>0.166667</iyy>
+			<iyz>0</iyz>
+			<izz>0.166667</izz>
+			</inertia>
+			</inertial>
+			<collision concave='yes' name='collision_0'>
+			<geometry>
+			<mesh>
+			<scale>1 1 1</scale>
+				<uri>part0.obj</uri>
+			</mesh>
+			</geometry>
+			  </collision>
+			<visual name='visual'>
+				<geometry>
+				<mesh>
+					<scale>1 1 1</scale>
+					<uri>part0.obj</uri>
+				</mesh>
+				</geometry>
+			<material>
+				<ambient>1 1 1 1</ambient>
+				<diffuse>1 1 1 1</diffuse>
+				
+				<specular>0.1 0.1 0.1 1</specular>
+				<emissive>0 0 0 0</emissive>
+			 </material>
+			 </visual>
+			 </link>
+			</model>
+		<model name='part1.obj'>
+			<static>1</static>
+			<pose frame=''>0 0 0 0 0 0</pose>
+			<link name='link_d1'>
+			<inertial>
+			<mass>0</mass>
+			<inertia>
+			<ixx>0.166667</ixx>
+			<ixy>0</ixy>
+			<ixz>0</ixz>
+			<iyy>0.166667</iyy>
+			<iyz>0</iyz>
+			<izz>0.166667</izz>
+			</inertia>
+			</inertial>
+			<collision concave='yes' name='collision_1'>
+			<geometry>
+			<mesh>
+			<scale>1 1 1</scale>
+				<uri>part1.obj</uri>
+			</mesh>
+			</geometry>
+			  </collision>
+			<visual name='visual'>
+				<geometry>
+				<mesh>
+					<scale>1 1 1</scale>
+					<uri>part1.obj</uri>
+				</mesh>
+				</geometry>
+			<material>
+				<ambient>1 1 1 1</ambient>
+				<diffuse>0.2 0.6 0.2 1</diffuse>
+				<specular>0.1 0.1 0.1 1</specular>
+				<emissive>0 0 0 0</emissive>
+			 </material>
+			 </visual>
+			 </link>
+			</model>
+		<model name='part2.obj'>
+			<static>1</static>
+			<pose frame=''>0 0 0 0 0 0</pose>
+			<link name='link_d2'>
+			<inertial>
+			<mass>0</mass>
+			<inertia>
+			<ixx>0.166667</ixx>
+			<ixy>0</ixy>
+			<ixz>0</ixz>
+			<iyy>0.166667</iyy>
+			<iyz>0</iyz>
+			<izz>0.166667</izz>
+			</inertia>
+			</inertial>
+			<collision concave='yes' name='collision_2'>
+			<geometry>
+			<mesh>
+			<scale>1 1 1</scale>
+				<uri>part2.obj</uri>
+			</mesh>
+			</geometry>
+			  </collision>
+			<visual name='visual'>
+				<geometry>
+				<mesh>
+					<scale>1 1 1</scale>
+					<uri>part2.obj</uri>
+				</mesh>
+				</geometry>
+			<material>
+				<ambient>1 1 1 1</ambient>
+				<diffuse>1 1 0 1</diffuse>
+				<specular>0.1 0.1 0.1 1</specular>
+				<emissive>0 0 0 0</emissive>
+			 </material>
+			 </visual>
+			 </link>
+			</model>
+		<model name='part3.obj'>
+			<static>1</static>
+			<pose frame=''>0 0 0 0 0 0</pose>
+			<link name='link_d3'>
+			<inertial>
+			<mass>0</mass>
+			<inertia>
+			<ixx>0.166667</ixx>
+			<ixy>0</ixy>
+			<ixz>0</ixz>
+			<iyy>0.166667</iyy>
+			<iyz>0</iyz>
+			<izz>0.166667</izz>
+			</inertia>
+			</inertial>
+			<collision concave='yes' name='collision_3'>
+			<geometry>
+			<mesh>
+			<scale>1 1 1</scale>
+				<uri>part3.obj</uri>
+			</mesh>
+			</geometry>
+			  </collision>
+			<visual name='visual'>
+				<geometry>
+				<mesh>
+					<scale>1 1 1</scale>
+					<uri>part3.obj</uri>
+				</mesh>
+				</geometry>
+			<material>
+				<ambient>1 1 1 1</ambient>
+				<diffuse>1 1 0 1</diffuse>
+				<specular>0.1 0.1 0.1 1</specular>
+				<emissive>0 0 0 0</emissive>
+			 </material>
+			 </visual>
+			 </link>
+			</model>
+		<model name='part4.obj'>
+			<static>1</static>
+			<pose frame=''>0 0 0 0 0 0</pose>
+			<link name='link_d4'>
+			<inertial>
+			<mass>0</mass>
+			<inertia>
+			<ixx>0.166667</ixx>
+			<ixy>0</ixy>
+			<ixz>0</ixz>
+			<iyy>0.166667</iyy>
+			<iyz>0</iyz>
+			<izz>0.166667</izz>
+			</inertia>
+			</inertial>
+			<collision concave='yes' name='collision_4'>
+			<geometry>
+			<mesh>
+			<scale>1 1 1</scale>
+				<uri>part4.obj</uri>
+			</mesh>
+			</geometry>
+			  </collision>
+			<visual name='visual'>
+				<geometry>
+				<mesh>
+					<scale>1 1 1</scale>
+					<uri>part4.obj</uri>
+				</mesh>
+				</geometry>
+			<material>
+				<ambient>1 1 1 1</ambient>
+				<diffuse>0.5 0.5 1 1.000000</diffuse>
+				<specular>0.1 0.1 0.1 1</specular>
+				<emissive>0 0 0 0</emissive>
+			 </material>
+			 </visual>
+			 </link>
+			</model>
+		<model name='part5.obj'>
+			<static>1</static>
+			<pose frame=''>0 0 0 0 0 0</pose>
+			<link name='link_d5'>
+			<inertial>
+			<mass>0</mass>
+			<inertia>
+			<ixx>0.166667</ixx>
+			<ixy>0</ixy>
+			<ixz>0</ixz>
+			<iyy>0.166667</iyy>
+			<iyz>0</iyz>
+			<izz>0.166667</izz>
+			</inertia>
+			</inertial>
+			<collision concave='yes' name='collision_5'>
+			<geometry>
+			<mesh>
+			<scale>1 1 1</scale>
+				<uri>part5.obj</uri>
+			</mesh>
+			</geometry>
+			  </collision>
+			<visual name='visual'>
+				<geometry>
+				<mesh>
+					<scale>1 1 1</scale>
+					<uri>part5.obj</uri>
+				</mesh>
+				</geometry>
+			<material>
+				<ambient>1 1 1 1</ambient>
+				<diffuse>0.6 0.6 1 1.000000</diffuse>
+				<specular>0.1 0.1 0.1 1</specular>
+				<emissive>0 0 0 0</emissive>
+			 </material>
+			 </visual>
+			 </link>
+			</model>
+		<model name='part6.obj'>
+			<static>1</static>
+			<pose frame=''>0 0 0 0 0 0</pose>
+			<link name='link_d6'>
+			<inertial>
+			<mass>0</mass>
+			<inertia>
+			<ixx>0.166667</ixx>
+			<ixy>0</ixy>
+			<ixz>0</ixz>
+			<iyy>0.166667</iyy>
+			<iyz>0</iyz>
+			<izz>0.166667</izz>
+			</inertia>
+			</inertial>
+			<collision concave='yes' name='collision_6'>
+			<geometry>
+			<mesh>
+			<scale>1 1 1</scale>
+				<uri>part6.obj</uri>
+			</mesh>
+			</geometry>
+			  </collision>
+			<visual name='visual'>
+				<geometry>
+				<mesh>
+					<scale>1 1 1</scale>
+					<uri>part6.obj</uri>
+				</mesh>
+				</geometry>
+			<material>
+				<ambient>1 1 1 1</ambient>
+				<diffuse>0.6 0.6 0.6 1.000000</diffuse>
+				<specular>0.1 0.1 0.1 1</specular>
+				<emissive>0 0 0 0</emissive>
+			 </material>
+			 </visual>
+			 </link>
+			</model>
+	</world>
+</sdf>
