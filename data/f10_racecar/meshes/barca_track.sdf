@@ -229,7 +229,7 @@
 				</geometry>
 			<material>
 				<ambient>1 1 1 1</ambient>
-				<diffuse>0.6 0.6 1 1.000000</diffuse>
+				<diffuse>0.6 0.6 1 .6</diffuse>
 				<specular>0.1 0.1 0.1 1</specular>
 				<emissive>0 0 0 0</emissive>
 			 </material>
