@@ -1,5 +1,7 @@
 import pybullet as p
 import time
+import math
+
 p.connect(p.GUI)
 
 p.resetSimulation()
@@ -51,7 +53,44 @@ steering = [0,2]
 targetVelocitySlider = p.addUserDebugParameter("wheelVelocity",-50,50,0)
 maxForceSlider = p.addUserDebugParameter("maxForce",0,50,20)
 steeringSlider = p.addUserDebugParameter("steering",-1,1,0)
+
+def getCarYaw(car):
+	carPos,carOrn = p.getBasePositionAndOrientation(car)
+	carEuler = p.getEulerFromQuaternion(carOrn)
+        carYaw = carEuler[2]*360/(2.*math.pi)-90
+	return carYaw
+
+prevCarYaw = getCarYaw(car)
+
 while (True):
+	carPos,carOrn = p.getBasePositionAndOrientation(car)
+
+	# Keep the previous orientation of the camera set by the user.
+	camInfo = p.getDebugVisualizerCamera()
+	yaw = camInfo[8]
+	pitch = camInfo[9]
+	distance = camInfo[10]
+	targetPos = camInfo[11]
+	camFwd = camInfo[5]
+
+	carYaw = getCarYaw(car)
+
+	#the car yaw is clamped between -90 and 270, make sure to deal with angles that wrap around
+	if (carYaw-prevCarYaw>45):
+		yaw+=360
+	if (carYaw-prevCarYaw<-45):
+		yaw-=360
+	prevCarYaw = carYaw
+
+	#print("carYaw=", carYaw)
+	#print("camYaw=", yaw)
+	
+	#slowly rotate the camera behind the car
+	diffYaw = (carYaw-yaw)*0.03
+
+	#track the position of the car as target
+	p.resetDebugVisualizerCamera(distance, yaw+diffYaw, pitch, carPos)
+
 	maxForce = p.readUserDebugParameter(maxForceSlider)
 	targetVelocity = p.readUserDebugParameter(targetVelocitySlider)
 	steeringAngle = p.readUserDebugParameter(steeringSlider)
