@@ -8,7 +8,7 @@ p.setTimeStep(1./500)
 #p.setDefaultContactERP(0)
 #urdfFlags = p.URDF_USE_SELF_COLLISION+p.URDF_USE_SELF_COLLISION_EXCLUDE_ALL_PARENTS 
 urdfFlags = p.URDF_USE_SELF_COLLISION
-quadruped = p.loadURDF("laikago.urdf",[0,0,.5],[0,0.5,0.5,0], flags = urdfFlags,useFixedBase=False)
+quadruped = p.loadURDF("laikago/laikago.urdf",[0,0,.5],[0,0.5,0.5,0], flags = urdfFlags,useFixedBase=False)
 
 #enable collision between lower legs
 
@@ -53,21 +53,16 @@ p.setRealTimeSimulation(0)
 joints=[]
 
 with open("data1.txt","r") as filestream:
-        for line in filestream:
-		print("line=",line)
+	for line in filestream:
 		maxForce = p.readUserDebugParameter(maxForceId)
-                currentline = line.split(",")
-                #print (currentline)
-                #print("-----")
-                frame = currentline[0]
-                t = currentline[1]
-                #print("frame[",frame,"]")
-                joints=currentline[2:14]
-                #print("joints=",joints)
+		currentline = line.split(",")
+		frame = currentline[0]
+		t = currentline[1]
+		joints=currentline[2:14]
 		for j in range (12):
 			targetPos = float(joints[j])
 			p.setJointMotorControl2(quadruped,jointIds[j],p.POSITION_CONTROL,jointDirections[j]*targetPos+jointOffsets[j], force=maxForce)
- 		p.stepSimulation()
+		p.stepSimulation()
 		for lower_leg in lower_legs:
 			#print("points for ", quadruped, " link: ", lower_leg)
 			pts = p.getContactPoints(quadruped,-1, lower_leg)
