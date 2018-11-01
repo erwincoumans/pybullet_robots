@@ -16,6 +16,9 @@ F1/10 Racecar:
 Dobot:
 ![alt text](https://raw.githubusercontent.com/erwincoumans/pybullet_robots/master/images/Dobot.png)
 
+Turtebot:
+![alt text](https://raw.githubusercontent.com/erwincoumans/pybullet_robots/master/images/Turtlebot.png)
+
 Baxter:
 ![alt text](https://raw.githubusercontent.com/erwincoumans/pybullet_robots/master/images/Baxter.png)
 
