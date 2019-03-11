@@ -112,25 +112,16 @@ while (True):
 		camPos = ls[0]
 		camOrn = ls[1]
 		camMat = p.getMatrixFromQuaternion(camOrn)
-		
-		#print("camMat=",camMat)
 		upVector = [0,0,1]
 		forwardVec = [camMat[0],camMat[3],camMat[6]]
 		#sideVec =  [camMat[1],camMat[4],camMat[7]]
 		camUpVec =  [camMat[2],camMat[5],camMat[8]]
-		#print("forwardVec=",forwardVec)
 		camTarget = [camPos[0]+forwardVec[0]*10,camPos[1]+forwardVec[1]*10,camPos[2]+forwardVec[2]*10]
-		
 		camUpTarget = [camPos[0]+camUpVec[0],camPos[1]+camUpVec[1],camPos[2]+camUpVec[2]]
-		#print("camUpVec=",camUpVec)
-		#print("camTarget=",camTarget)
-		#p.addUserDebugLine(camPos,camTarget,[1,0,0], replaceItemUniqueId=lineId)
-		#p.addUserDebugLine(camPos,camUpTarget,[0,1,0], replaceItemUniqueId=lineId2)
 		viewMat = p.computeViewMatrix(camPos, camTarget, camUpVec)
 		projMat = camInfo[3]
 		#p.getCameraImage(320,200,viewMatrix=viewMat,projectionMatrix=projMat, flags=p.ER_NO_SEGMENTATION_MASK, renderer=p.ER_BULLET_HARDWARE_OPENGL)
 		p.getCameraImage(320,200,viewMatrix=viewMat,projectionMatrix=projMat, renderer=p.ER_BULLET_HARDWARE_OPENGL)
-		#p.getCameraImage(32,20,viewMatrix=viewMat,projectionMatrix=projMat)
 		lastTime=nowTime
 	
 	nowControlTime = time.time()
@@ -140,15 +131,11 @@ while (True):
 	if (nowLidarTime-lastLidarTime>.3):
 		#print("Lidar!")
 		numThreads=0
-		#rayFromWorld=[]
-		#rayToWorld=[]
-		#if (frame<200):
 		results = p.rayTestBatch(rayFrom,rayTo,numThreads, parentObjectUniqueId=car, parentLinkIndex=hokuyo_joint)
 		for i in range (numRays):
 			hitObjectUid=results[i][0]
 			hitFraction = results[i][2]
 			hitPosition = results[i][3]
-			#print("hitFraction[",i,"]=",hitFraction)
 			if (hitFraction==1.):
 				p.addUserDebugLine(rayFrom[i],rayTo[i], rayMissColor,replaceItemUniqueId=rayIds[i],parentObjectUniqueId=car, parentLinkIndex=hokuyo_joint)
 			else:
@@ -158,7 +145,6 @@ while (True):
 				p.addUserDebugLine(rayFrom[i],localHitTo, rayHitColor,replaceItemUniqueId=rayIds[i],parentObjectUniqueId=car, parentLinkIndex=hokuyo_joint)
 		lastLidarTime = nowLidarTime
 		
-	
 	#control at 100Hz
 	if (nowControlTime-lastControlTime>.01):
 		carPos,carOrn = p.getBasePositionAndOrientation(car)
