@@ -22,7 +22,7 @@ for l0 in lower_legs:
 		if (l1>l0):
 			enableCollision = 1
 			print("collision for pair",l0,l1, p.getJointInfo(quadruped,l0)[12],p.getJointInfo(quadruped,l1)[12], "enabled=",enableCollision)
-			p.setCollisionFilterPair(quadruped, quadruped, 2,5,enableCollision)
+			p.setCollisionFilterPair(quadruped, quadruped, l0,l1,enableCollision)
 
 jointIds=[]
 paramIds=[]
