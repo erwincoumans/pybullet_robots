@@ -1,7 +1,21 @@
-theme: jekyll-theme-minimal
-relative_links:
-  enabled: true
-  collections: true
-include:
-  - README.md
+title: Test
+name: "Erwin Coumans' Tech Blog"
+author: Erwin Coumans
+twitter_username: erwincoumans
+baseurl: "/pybullet_robots"
+description: Document my learning notes.
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+excerpt_separator: <!--more-->
+plugins:
+  - jekyll-feed
+exclude:
+  - Gemfile
+  - Gemfile.lock
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
   
