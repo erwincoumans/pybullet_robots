@@ -7,13 +7,13 @@
   <link name="panda_link0">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link0.obj"/>
+        <mesh filename="package://meshes/collision/link0.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link0.obj"/>
+        <mesh filename="package://meshes/collision/link0.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -21,13 +21,13 @@
   <link name="panda_link1">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link1.obj"/>
+        <mesh filename="package://meshes/collision/link1.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link1.obj"/>
+        <mesh filename="package://meshes/collision/link1.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -43,13 +43,13 @@
   <link name="panda_link2">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link2.obj"/>
+        <mesh filename="package://meshes/collision/link2.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link2.obj"/>
+        <mesh filename="package://meshes/collision/link2.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -65,13 +65,13 @@
   <link name="panda_link3">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link3.obj"/>
+        <mesh filename="package://meshes/collision/link3.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link3.obj"/>
+        <mesh filename="package://meshes/collision/link3.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -87,13 +87,13 @@
   <link name="panda_link4">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link4.obj"/>
+        <mesh filename="package://meshes/collision/link4.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link4.obj"/>
+        <mesh filename="package://meshes/collision/link4.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -109,13 +109,13 @@
   <link name="panda_link5">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link5.obj"/>
+        <mesh filename="package://meshes/collision/link5.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link5.obj"/>
+        <mesh filename="package://meshes/collision/link5.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -131,13 +131,13 @@
   <link name="panda_link6">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link6.obj"/>
+        <mesh filename="package://meshes/collision/link6.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link6.obj"/>
+        <mesh filename="package://meshes/collision/link6.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -153,13 +153,13 @@
   <link name="panda_link7">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link7.obj"/>
+        <mesh filename="package://meshes/collision/link7.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/link7.obj"/>
+        <mesh filename="package://meshes/collision/link7.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -187,13 +187,13 @@
   <link name="panda_hand">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/hand.obj"/>
+        <mesh filename="package://meshes/collision/hand.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/hand.obj"/>
+        <mesh filename="package://meshes/collision/hand.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -201,13 +201,13 @@
   <link name="panda_leftfinger">
     <visual>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/finger.obj"/>
+        <mesh filename="package://meshes/collision/finger.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/finger.obj"/>
+        <mesh filename="package://meshes/collision/finger.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
@@ -216,14 +216,14 @@
     <visual>
       <origin rpy="0 0 3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/finger.obj"/>
+        <mesh filename="package://meshes/collision/finger.obj"/>
       </geometry>
       <material name="panda_white"/>
     </visual>
     <collision>
       <origin rpy="0 0 3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://Panda/meshes/collision/finger.obj"/>
+        <mesh filename="package://meshes/collision/finger.obj"/>
       </geometry>
       <material name="panda_white"/>
     </collision>
