@@ -1,6 +1,6 @@
 import pybullet as p
 p.connect(p.GUI)
-panda = p.loadURDF("panda.urdf", useFixedBase=True)
+panda = p.loadURDF("franka_panda/panda.urdf", useFixedBase=True)
 p.setGravity(0,0,-9.8)
 jointIds = []
 paramIds = []
