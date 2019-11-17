@@ -5,12 +5,13 @@ parentdir = os.path.dirname(os.path.dirname(currentdir))
 os.sys.path.insert(0, parentdir)
 
 from pybullet_utils import bullet_client
+import panda_sim
 
 
 import time
 
-
-
+useGUI = False
+timeStep = 1./60.
 
 # Importing the libraries
 import os
@@ -18,53 +19,8 @@ import time
 import multiprocessing as mp
 from multiprocessing import Process, Pipe
 
-def createInstance(p, base_offset, useMaximalCoordinates, flags):
-  
-  
-  
-  objects = [
-      p.loadURDF("kuka_iiwa/model_vr_limits.urdf", [base_offset[0]+1.400000, base_offset[1]+-0.200000,  base_offset[2]+0.600000], 
-      [0.000000, 0.000000,0.000000, 1.000000], flags=flags)
-  ]
-  kuka = objects[0]
-  jointPositions = [-0.000000, -0.000000, 0.000000, 1.570793, 0.000000, -1.036725, 0.000001]
-  for jointIndex in range(p.getNumJoints(kuka)):
-    p.resetJointState(kuka, jointIndex, jointPositions[jointIndex])
-    p.setJointMotorControl2(kuka, jointIndex, p.POSITION_CONTROL, jointPositions[jointIndex], 0)
-  
-  objects = [
-      p.loadURDF("lego/lego.urdf",[ base_offset[0]+1.000000, base_offset[1]+-0.200000, base_offset[2]+0.700000], [0.000000, 0.000000, 0.000000,
-                 1.000000],flags=flags, useMaximalCoordinates=useMaximalCoordinates)
-  ]
-  objects = [
-      p.loadURDF("lego/lego.urdf",[ base_offset[0]+1.000000, base_offset[1]+-0.200000, base_offset[2]+0.800000],[ 0.000000, 0.000000, 0.000000,
-                 1.000000],flags=flags, useMaximalCoordinates=useMaximalCoordinates)
-  ]
-  objects = [
-      p.loadURDF("lego/lego.urdf", [base_offset[0]+1.000000, base_offset[1]+-0.200000, base_offset[2]+0.900000], [0.000000, 0.000000, 0.000000,
-                 1.000000],flags=flags, useMaximalCoordinates=useMaximalCoordinates)
-  ]
-  
-  
-  objects = [
-      p.loadURDF("jenga/jenga.urdf", [base_offset[0]+1.300000,base_offset[1]+ -0.700000, base_offset[2]+0.750000],[ 0.000000, 0.707107, 0.000000,
-                 0.707107],flags=flags, useMaximalCoordinates=useMaximalCoordinates)
-  ]
-  objects = [
-      p.loadURDF("jenga/jenga.urdf", [base_offset[0]+1.200000, base_offset[1]+-0.700000, base_offset[2]+0.750000], [0.000000, 0.707107, 0.000000,
-                 0.707107],flags=flags, useMaximalCoordinates=useMaximalCoordinates)
-  ]
-
-  objects = [
-      p.loadURDF("table/table.urdf", [base_offset[0]+1.000000,base_offset[1]+ -0.200000,base_offset[2]+ 0.000000],[ 0.000000, 0.000000, 0.707107,
-                 0.707107],flags=flags, useMaximalCoordinates=useMaximalCoordinates)
-  ]
-  objects = [
-      p.loadURDF("teddy_vhacd.urdf",[base_offset[0]+ 1.050000,base_offset[1]+ -0.500000,base_offset[2]+ 0.700000], [0.000000, 0.000000, 0.707107,
-                 0.707107],flags=flags, useMaximalCoordinates=useMaximalCoordinates)
-  ]
-  return kuka
-
+pandaEndEffectorIndex = 11 #8
+pandaNumDofs = 7
 
 
 _RESET = 1
@@ -74,47 +30,72 @@ _EXPLORE = 3
 
 def ExploreWorker(rank, num_processes, childPipe, args):
   print("hi:",rank, " out of ", num_processes)  
-  import pybullet as op
+  import pybullet as op1
   import pybullet_data as pd
   logName=""
   p1=0
   n = 0
+  space = 2 
+  simulations=[]
+  sims_per_worker = 10
+  
+  offsetY = rank*space
   while True:
     n += 1
     try:
       # Only block for short times to have keyboard exceptions be raised.
-      if not childPipe.poll(0.001):
+      if not childPipe.poll(0.0001):
         continue
       message, payload = childPipe.recv()
     except (EOFError, KeyboardInterrupt):
       break
     if message == _RESET:
-      op.connect(op.DIRECT)
-      p1 = bullet_client.BulletClient()
-      p1.setAdditionalSearchPath(pd.getDataPath())
-      logName = str("batchsim")+str(rank)
-      p1.loadURDF("plane.urdf")
-      createInstance(p1, [0,0,0],useMaximalCoordinates=True, flags=0)
+      if (useGUI):
+        p1 = bullet_client.BulletClient(op1.GUI)
+      else:
+        p1 = bullet_client.BulletClient(op1.DIRECT)
+      p1.setTimeStep(timeStep)
+      
+      p1.setPhysicsEngineParameter(numSolverIterations=8)
       p1.setPhysicsEngineParameter(minimumSolverIslandSize=100)
-      p1.setGravity(0, 0, -10)
+      p1.configureDebugVisualizer(p1.COV_ENABLE_Y_AXIS_UP,1)
+      p1.configureDebugVisualizer(p1.COV_ENABLE_RENDERING,0)
+      p1.setAdditionalSearchPath(pd.getDataPath())
+      p1.setGravity(0,-9.8,0)
+      logName = str("batchsim")+str(rank)
+      for j in range (3):
+        offsetX = 0#-sims_per_worker/2.0*space
+        for i in range (sims_per_worker):
+          offset=[offsetX,0, offsetY]
+          sim = panda_sim.PandaSim(p1, offset)
+          simulations.append(sim)
+          offsetX += space 
+        offsetY += space 
       childPipe.send(["reset ok"])
-      logId = op.startStateLogging(op.STATE_LOGGING_PROFILE_TIMINGS,logName)
+      p1.configureDebugVisualizer(p1.COV_ENABLE_RENDERING,1)
+      for i in range (100):
+        p1.stepSimulation()
+      
+      logId = p1.startStateLogging(op1.STATE_LOGGING_PROFILE_TIMINGS,logName)
       continue
     if message == _EXPLORE:
       sum_rewards=rank
-
       
-      numSteps = int(5000/num_processes)
+      if useGUI:
+        numSteps = int(20000)
+      else:
+        numSteps = int(5)
       for i in range (numSteps):
+        for s in simulations:
+          s.step()
         p1.stepSimulation()
-      print("logId=",logId)
-      print("numSteps=",numSteps)
-      
+      #print("logId=",logId)
+      #print("numSteps=",numSteps)
 
       childPipe.send([sum_rewards])
       continue
     if message == _CLOSE:
-      op.stopStateLogging(logId)
+      p1.stopStateLogging(logId)
       childPipe.send(["close ok"])
       break
   childPipe.close()
@@ -122,7 +103,10 @@ def ExploreWorker(rank, num_processes, childPipe, args):
 
 if __name__ == "__main__":
   mp.freeze_support()
-  num_processes = 16 
+  if useGUI:
+    num_processes = 1
+  else:
+    num_processes = 12
   processes = []
   args=[0]*num_processes
   
@@ -142,11 +126,11 @@ if __name__ == "__main__":
   
   for parentPipe in parentPipes:
     parentPipe.send([_RESET, "blaat"])
-    
+  
   positive_rewards = [0]*num_processes
   for k in range(num_processes):
-    
-    print("reset msg=",parentPipes[k].recv()[0])
+    #print("reset msg=",parentPipes[k].recv()[0])
+    msg = parentPipes[k].recv()[0]
   
   for parentPipe in parentPipes:
     parentPipe.send([_EXPLORE, "blaat"])
@@ -154,7 +138,7 @@ if __name__ == "__main__":
   positive_rewards = [0]*num_processes
   for k in range(num_processes):
     positive_rewards[k] = parentPipes[k].recv()[0]
-    print("positive_rewards=",positive_rewards[k])
+    #print("positive_rewards=",positive_rewards[k])
 
   
   for parentPipe in parentPipes:
@@ -163,7 +147,16 @@ if __name__ == "__main__":
   positive_rewards = [0]*num_processes
   for k in range(num_processes):
     positive_rewards[k] = parentPipes[k].recv()[0]
-    print("positive_rewards=",positive_rewards[k])
+    #print("positive_rewards=",positive_rewards[k])
+    msg = positive_rewards[k]
+
+  for parentPipe in parentPipes:
+    parentPipe.send([_EXPLORE, "blaat"])
+  
+  positive_rewards = [0]*num_processes
+  for k in range(num_processes):
+    positive_rewards[k] = parentPipes[k].recv()[0]
+    #print("positive_rewards=",positive_rewards[k])
 
   
   for parentPipe in parentPipes:
