@@ -398,49 +398,49 @@
     <parent link="pelvis"/>
     <child link="left_pelvis_abduction"/>
   </joint>
-  <joint name="hip_abduction_left" type="continuous">
+  <joint name="hip_abduction_left" type="revolute">
     <origin rpy="0 -1.57079632679 0" xyz="0 0 -0.07"/>
     <axis xyz="1 0 0"/>
     <parent link="left_pelvis_abduction"/>
     <child link="left_pelvis_rotation"/>
     <limit effort="4.5" lower="-0.2618" upper="0.3927" velocity="12.1475"/>
   </joint>
-  <joint name="hip_rotation_left" type="continuous">
+  <joint name="hip_rotation_left" type="revolute">
     <origin rpy="0 1.57079632679 -1.57079632679" xyz="0 0 -0.09"/>
     <axis xyz="-1 0 0"/>
     <parent link="left_pelvis_rotation"/>
     <child link="left_hip"/>
     <limit effort="4.5" lower="-0.3927" upper="0.3927" velocity="12.1475"/>
   </joint>
-  <joint name="hip_flexion_left" type="continuous">
+  <joint name="hip_flexion_left" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="0 0 1"/>
     <parent link="left_hip"/>
     <child link="left_thigh"/>
     <limit effort="12.2" lower="-0.8727" upper="1.3963" velocity="8.5085"/>
   </joint>
-  <joint name="knee_joint_left" type="continuous">
+  <joint name="knee_joint_left" type="revolute">
     <origin rpy="0 0 0" xyz="0.12 0 0.0045"/>
     <axis xyz="0 0 1"/>
     <parent link="left_thigh"/>
     <child link="left_knee"/>
     <limit effort="12.2" lower="-2.8623" upper="-0.6458" velocity="8.5085"/>
   </joint>
-  <joint name="knee_to_shin_left" type="continuous">
+  <joint name="knee_to_shin_left" type="revolute">
     <origin rpy="0 0 0" xyz="0.0607 0.0474 0"/>
     <axis xyz="0 0 1"/>
     <parent link="left_knee"/>
     <child link="left_shin"/>
-    <limit effort="0" lower="-100" upper="100" velocity="100"/>
+    <limit effort="0" lower="-0.349" upper="0.349" velocity="100"/>
   </joint>
-  <joint name="ankle_joint_left" type="continuous">
+  <joint name="ankle_joint_left" type="revolute">
     <origin rpy="0 0 0" xyz="0.4348 0.02 0"/>
     <axis xyz="0 0 1"/>
     <parent link="left_shin"/>
     <child link="left_tarsus"/>
-    <limit effort="0" lower="-100" upper="100" velocity="100"/>
+    <limit effort="0" lower="0.872" upper="2.97" velocity="100"/>
   </joint>
-  <joint name="toe_joint_left" type="continuous">
+  <joint name="toe_joint_left" type="revolute">
     <origin rpy="0 0 0" xyz="0.408 -0.04 0"/>
     <axis xyz="0 0 1"/>
     <parent link="left_tarsus"/>
@@ -452,49 +452,49 @@
     <parent link="pelvis"/>
     <child link="right_pelvis_abduction"/>
   </joint>
-  <joint name="hip_abduction_right" type="continuous">
+  <joint name="hip_abduction_right" type="revolute">
     <origin rpy="0 -1.57079632679 0" xyz="0 0 -0.07"/>
     <axis xyz="1 0 0"/>
     <parent link="right_pelvis_abduction"/>
     <child link="right_pelvis_rotation"/>
     <limit effort="4.5" lower="-0.3927" upper="0.2618" velocity="12.1475"/>
   </joint>
-  <joint name="hip_rotation_right" type="continuous">
+  <joint name="hip_rotation_right" type="revolute">
     <origin rpy="0 1.57079632679 -1.57079632679" xyz="0 0 -0.09"/>
     <axis xyz="-1 0 0"/>
     <parent link="right_pelvis_rotation"/>
     <child link="right_hip"/>
     <limit effort="4.5" lower="-0.3927" upper="0.3927" velocity="12.1475"/>
   </joint>
-  <joint name="hip_flexion_right" type="continuous">
+  <joint name="hip_flexion_right" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="0 0 1"/>
     <parent link="right_hip"/>
     <child link="right_thigh"/>
     <limit effort="12.2" lower="-0.8727" upper="1.3963" velocity="8.5085"/>
   </joint>
-  <joint name="knee_joint_right" type="continuous">
+  <joint name="knee_joint_right" type="revolute">
     <origin rpy="0 0 0" xyz="0.12 0 -0.0045"/>
     <axis xyz="0 0 1"/>
     <parent link="right_thigh"/>
     <child link="right_knee"/>
     <limit effort="12.2" lower="-2.8623" upper="-0.6458" velocity="8.5085"/>
   </joint>
-  <joint name="knee_to_shin_right" type="continuous">
+  <joint name="knee_to_shin_right" type="revolute">
     <origin rpy="0 0 0" xyz="0.0607 0.0474 0"/>
     <axis xyz="0 0 1"/>
     <parent link="right_knee"/>
     <child link="right_shin"/>
-    <limit effort="0" lower="-100" upper="100" velocity="100"/>
+    <limit effort="0" lower="-0.349" upper="0.349" velocity="100"/>
   </joint>
-  <joint name="ankle_joint_right" type="continuous">
+  <joint name="ankle_joint_right" type="revolute">
     <origin rpy="0 0 0" xyz="0.4348 0.02 0"/>
     <axis xyz="0 0 1"/>
     <parent link="right_shin"/>
     <child link="right_tarsus"/>
-    <limit effort="0" lower="-100" upper="100" velocity="100"/>
+    <limit effort="0" lower="0.872" upper="2.97" velocity="100"/>
   </joint>
-  <joint name="toe_joint_right" type="continuous">
+  <joint name="toe_joint_right" type="revolute">
     <origin rpy="0 0 0" xyz="0.408 -0.04 0"/>
     <axis xyz="0 0 1"/>
     <parent link="right_tarsus"/>
