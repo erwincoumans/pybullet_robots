@@ -5,7 +5,7 @@ parentdir = os.path.dirname(os.path.dirname(currentdir))
 os.sys.path.insert(0, parentdir)
 
 from pybullet_utils import bullet_client
-import panda_sim
+import panda_sim_grasp as panda_sim
 
 
 import time
@@ -67,7 +67,7 @@ def ExploreWorker(rank, num_processes, childPipe, args):
         offsetX = 0#-sims_per_worker/2.0*space
         for i in range (sims_per_worker):
           offset=[offsetX,0, offsetY]
-          sim = panda_sim.PandaSim(p1, offset)
+          sim = panda_sim.PandaSimAuto(p1, offset)
           simulations.append(sim)
           offsetX += space 
         offsetY += space 
@@ -131,7 +131,6 @@ if __name__ == "__main__":
   for k in range(num_processes):
     #print("reset msg=",parentPipes[k].recv()[0])
     msg = parentPipes[k].recv()[0]
-  
   for parentPipe in parentPipes:
     parentPipe.send([_EXPLORE, "blaat"])
   
@@ -140,10 +139,8 @@ if __name__ == "__main__":
     positive_rewards[k] = parentPipes[k].recv()[0]
     #print("positive_rewards=",positive_rewards[k])
 
-  
   for parentPipe in parentPipes:
     parentPipe.send([_EXPLORE, "blaat"])
-  
   positive_rewards = [0]*num_processes
   for k in range(num_processes):
     positive_rewards[k] = parentPipes[k].recv()[0]
