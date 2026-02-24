@@ -10,7 +10,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/torso/base_link.DAE"/>
+        <mesh filename="package://baxter_description/meshes/torso/base_link.STL"/>
       </geometry>
       <material name="darkgray">
         <color rgba=".2 .2 .2 1"/>
@@ -19,7 +19,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/torso/base_link_collision.DAE"/>
+        <mesh filename="package://baxter_description/meshes/torso/base_link_collision.STL"/>
       </geometry>
     </collision>
     <inertial>
@@ -46,7 +46,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 .00953"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/head/H0.DAE"/>
+        <mesh filename="package://baxter_description/meshes/head/H0.STL"/>
       </geometry>
       <material name="darkgray">
         <color rgba=".2 .2 .2 1"/>
@@ -90,7 +90,7 @@
     <visual>
       <origin rpy="0 -1.57079632679 0" xyz="0 -.00953 -.0347"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/head/H1.DAE"/>
+        <mesh filename="package://baxter_description/meshes/head/H1.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -254,7 +254,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/upper_shoulder/S0.DAE"/>
+        <mesh filename="package://baxter_description/meshes/upper_shoulder/S0.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -276,7 +276,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/lower_shoulder/S1.DAE"/>
+        <mesh filename="package://baxter_description/meshes/lower_shoulder/S1.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -298,7 +298,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/upper_elbow/E0.DAE"/>
+        <mesh filename="package://baxter_description/meshes/upper_elbow/E0.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -333,7 +333,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/lower_elbow/E1.DAE"/>
+        <mesh filename="package://baxter_description/meshes/lower_elbow/E1.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -355,7 +355,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/upper_forearm/W0.DAE"/>
+        <mesh filename="package://baxter_description/meshes/upper_forearm/W0.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -397,7 +397,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/lower_forearm/W1.DAE"/>
+        <mesh filename="package://baxter_description/meshes/lower_forearm/W1.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -419,7 +419,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/wrist/W2.DAE"/>
+        <mesh filename="package://baxter_description/meshes/wrist/W2.STL"/>
       </geometry>
       <material name="lightgrey">
         <color rgba=".1 .1 .1 1"/>
@@ -622,7 +622,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/upper_shoulder/S0.DAE"/>
+        <mesh filename="package://baxter_description/meshes/upper_shoulder/S0.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -644,7 +644,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/lower_shoulder/S1.DAE"/>
+        <mesh filename="package://baxter_description/meshes/lower_shoulder/S1.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -666,7 +666,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/upper_elbow/E0.DAE"/>
+        <mesh filename="package://baxter_description/meshes/upper_elbow/E0.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -701,7 +701,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/lower_elbow/E1.DAE"/>
+        <mesh filename="package://baxter_description/meshes/lower_elbow/E1.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -723,7 +723,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/upper_forearm/W0.DAE"/>
+        <mesh filename="package://baxter_description/meshes/upper_forearm/W0.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -765,7 +765,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/lower_forearm/W1.DAE"/>
+        <mesh filename="package://baxter_description/meshes/lower_forearm/W1.STL"/>
       </geometry>
       <material name="darkred">
         <color rgba=".5 .1 .1 1"/>
@@ -787,7 +787,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/wrist/W2.DAE"/>
+        <mesh filename="package://baxter_description/meshes/wrist/W2.STL"/>
       </geometry>
       <material name="lightgrey">
         <color rgba=".1 .1 .1 1"/>
@@ -982,7 +982,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/base/PEDESTAL.DAE"/>
+        <mesh filename="package://baxter_description/meshes/base/PEDESTAL.STL"/>
       </geometry>
       <material name="darkgray">
         <color rgba=".2 .2 .2 1"/>
@@ -991,7 +991,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://baxter_description/meshes/base/pedestal_link_collision.DAE"/>
+        <mesh filename="package://baxter_description/meshes/base/pedestal_link_collision.STL"/>
       </geometry>
     </collision>
     <inertial>
@@ -1010,7 +1010,7 @@
     <visual>
       <origin rpy="-1.57079632679 3.14159265359 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/electric_gripper_base.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/electric_gripper_base.STL"/>
       </geometry>
     </visual>
     <collision>
@@ -1032,7 +1032,7 @@
     <visual>
       <origin rpy="0 0 -3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/extended_narrow.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/extended_narrow.STL"/>
       </geometry>
     </visual>
     <collision>
@@ -1064,7 +1064,7 @@
     <visual>
       <origin rpy="0 0 3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/paddle_tip.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/paddle_tip.STL"/>
       </geometry>
     </visual>
     <collision>
@@ -1088,7 +1088,7 @@
     <visual>
       <origin rpy="0 0 -0.0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/extended_narrow.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/extended_narrow.STL"/>
       </geometry>
     </visual>
     <collision>
@@ -1120,7 +1120,7 @@
     <visual>
       <origin rpy="0 0 0.0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/paddle_tip.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/paddle_tip.STL"/>
       </geometry>
     </visual>
     <collision>
@@ -1208,7 +1208,7 @@
     <visual>
       <origin rpy="-1.57079632679 3.14159265359 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/electric_gripper_base.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/electric_gripper_base.STL"/>
       </geometry>
     </visual>
     <collision>
@@ -1230,7 +1230,7 @@
     <visual>
       <origin rpy="0 0 -3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/extended_narrow.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/extended_narrow.STL"/>
       </geometry>
     </visual>
     <collision>
@@ -1262,7 +1262,7 @@
     <visual>
       <origin rpy="0 0 3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/half_round_tip.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/half_round_tip.STL"/>
       </geometry>
     </visual>
     <collision>
@@ -1286,7 +1286,7 @@
     <visual>
       <origin rpy="0 0 -0.0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/extended_narrow.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/extended_narrow.STL"/>
       </geometry>
     </visual>
     <collision>
@@ -1318,7 +1318,7 @@
     <visual>
       <origin rpy="0 0 0.0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/half_round_tip.DAE"/>
+        <mesh filename="package://rethink_ee_description/meshes/electric_gripper/fingers/half_round_tip.STL"/>
       </geometry>
     </visual>
     <collision>
